@@ -48,15 +48,16 @@ services:
     depends_on:
       - zookeeper
 
-  cmak:
-    image: sheepkiller/kafka-manager
-    container_name: cmak
+  kowl:
+    image: redpandadata/console:latest
+    container_name: kowl
     ports:
-      - "9000:9000"
+      - "9001:8080"
     environment:
-      ZK_HOSTS: zookeeper:2181
+      KAFKA_BROKERS: "kafka-1:9092,kafka-2:9093,kafka-3:9094"
     depends_on:
-      - zookeeper
+      - kafka-1
+      - kafka-2
+      - kafka-3
 
-# 웹 브라우저 → http://localhost:9000
-# 주키퍼 주소 : zookeeper:2181 
+# http://localhost:9001
