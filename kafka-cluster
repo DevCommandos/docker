@@ -48,21 +48,15 @@ services:
     depends_on:
       - zookeeper
 
-  akhq:
-    image: tchiotludo/akhq
-    container_name: akhq
+  cmak:
+    image: sheepkiller/kafka-manager
+    container_name: cmak
     ports:
-      - "9090:8080"
+      - "9000:9000"
     environment:
-      AKHQ_CONFIGURATION: |
-        akhq:
-          server:
-            access-log: true
-          connections:
-            my-cluster:
-              properties:
-                bootstrap.servers: "kafka-1:9092,kafka-2:9093,kafka-3:9094"
+      ZK_HOSTS: zookeeper:2181
     depends_on:
-      - kafka-1
-      - kafka-2
-      - kafka-3
+      - zookeeper
+
+# 웹 브라우저 → http://localhost:9000
+# 주키퍼 주소 : zookeeper:2181 
